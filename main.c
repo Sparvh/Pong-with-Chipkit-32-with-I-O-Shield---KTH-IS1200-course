@@ -291,10 +291,24 @@ void move_player1down(){
 	}
 }
 
-void move_player2(){
-	
+void move_player2up(){
+	if ( player2y >= 0 ){
+	quicksleep(100000);
+	player2y = player2y - 1;
+	//getRect(player1x,player1y,player1w,player1h,1);
+	setPixel(pixeltestx, pixeltesty, 1);
+	//getRect(player1x,player1y,player1w,player1h,1);
+	}
 }
-
+void move_player2down(){
+	if ( player2y < 26 ){
+	quicksleep(100000);
+	player2y = player2y + 1;
+	//getRect(player1x,player1y,player1w,player1h,1);
+	setPixel(pixeltestx, pixeltesty, 1);
+	//getRect(player1x,player1y,player1w,player1h,1);
+	}
+}
 void Menuscreen(){
 }
 
