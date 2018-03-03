@@ -1,15 +1,26 @@
 #include <pic32mx.h>
 #include <stdint.h>
+#include "time4io.c"
 //#include <stdlib.h>
 //#include "mipslab.h"
 
 void user_isr(void);
 void init_mcu(void);
 void init_tim(void);
+int getsw (void);
+int getbtns(void);
 
 void init_display(void);
 void display_update(void);
 void display_cls(void);
+
+//Buttons
+int button;
+int switches;
+
+//Test
+int pixeltestx = 14;
+int pixeltesty = 13;
 
 //scores
 int Player1Score = 0;
@@ -181,6 +192,22 @@ void display_image(int x, const uint8_t *data) {
 }
 
 
+void getRect(int x, int y, int w, int h, const uint8_t state){
+	
+	int i,j;
+	
+	int yj = y;
+	int xj = x;
+	
+	for (i = 0; i < w; i++){
+		for (j = 0; j < h; j++){
+			setPixel(x, y, state);
+			y++;
+		}
+		y = yj;
+		x++;
+	}
+}
 
 
 void move_ballplayer2(){ //Fixar så att bollen rör sig mot spelare 2
@@ -226,7 +253,7 @@ void ballColision1(){ //Ball colision for player 1
 
 void ballColision2(){ //Ball colision for player 2
 
-	if (ballx == 125){ //The x-position where player 1 is
+	if (ballx == 125){ //The x-position where player 2 is
 		int p2 = 0;
 		int yvalue2 = bally;
 		
@@ -242,12 +269,15 @@ void ballColision2(){ //Ball colision for player 2
 	}
 }
 
-void ballMovement(){
-	
+void move_player1up(){
+	quicksleep(100000);
+	player1y += player1y;
+	//getRect(player1x,player1y,player1w,player1h,1);
+	setPixel(pixeltestx, pixeltesty, 1);
+	getRect(player1x,player1y,player1w,player1h,1);
 }
 
-void move_player1(){
-	
+void move_player1down(){
 }
 
 void move_player2(){
@@ -260,22 +290,34 @@ void Menuscreen(){
 void Victoryscreen(){
 }
 
-void getRect(int x, int y, int w, int h, const uint8_t state){
+int getsw (void) {
 	
-	int i,j;
-	
-	int yj = y;
-	int xj = x;
-	
-	for (i = 0; i < w; i++){
-		for (j = 0; j < h; j++){
-			setPixel(x, y, state);
-			y++;
-		}
-		y = yj;
-		x++;
-	}
+	int switches = (PORTD >> 8) & 0x000f;
+	return switches;
 }
+
+int getbtns(void) {	
+	
+	int button = (PORTD >> 5) & 0x0007;
+	return button;
+}
+
+// void getRect(int x, int y, int w, int h, const uint8_t state){
+	
+	// int i,j;
+	
+	// int yj = y;
+	// int xj = x;
+	
+	// for (i = 0; i < w; i++){
+		// for (j = 0; j < h; j++){
+			// setPixel(x, y, state);
+			// y++;
+		// }
+		// y = yj;
+		// x++;
+	// }
+// }
 
 void clear(){
 	
@@ -288,7 +330,7 @@ void clear(){
 }
 
 		    
-		    char textbuffer[4][16];
+char textbuffer[4][16];
 
 const uint8_t const font[] = {
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -435,6 +477,61 @@ void display_string(int line, char *s) {
         } else
             textbuffer[line][i] = ' ';
 }
+int main(void){
+	
+init_mcu(); //Initilize led lampor och basic osv
+display_init(); //Initilize displayen 
+TRISD = 0x0fe0;
+
+while (1){
+	
+	clear();
+	
+	button = getbtns();
+	switches = getsw();
+	
+	getRect(player1x,player1y,player1w,player1h,1); //Skapar spelare 1
+	
+	getRect(player2x,player2y,player2w,player2h,1); //skapar spelare 2
+	
+	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
+	
+	ballColision1();
+	ballColision2();
+	
+	switch(button){
+	case 1:
+		move_player1up();
+		break;
+	case 2:
+		move_player1down();
+		break;
+	case 3:
+		move_player1up();
+		break;
+	case 4:
+		move_player1up();
+		break;
+		
+	}
+	
+	if (slut1 == 1){
+		
+		move_ballplayer2();
+		
+		
+	}
+	
+	if (slut1 == 0){
+		move_ballplayer1();
+	}
+	
+	display_image(0, bufferstate);
+	
+}
+
+return 0;	
+}
 
 //player 1 score board
 void Player1ScoreBoard()
@@ -479,40 +576,6 @@ case 4:
     break;
     }
 }
-int main(void){
-	
-init_mcu(); //Initilize led lampor och basic osv
-display_init(); //Initilize displayen 
-
-while (1){
-	clear();
-	getRect(player1x,player1y,player1w,player1h,1); //Skapar spelare 1
-	
-	getRect(player2x,player2y,player2w,player2h,1); //skapar spelare 2
-	
-	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
-	
-	ballColision1();
-	
-	if (slut1 == 1){
-		
-		move_ballplayer2();
-		
-		
-	}
-	
-	if (slut1 == 0){
-		move_ballplayer1();
-	}
-	
-	display_image(0, bufferstate);
-	
-}
-
-return 0;	
-}
-
-
 
 
 
