@@ -27,6 +27,8 @@ int player2h = 8;
 int ballx = 64;
 int bally = 16;
 
+int slut1 = 0;
+
 #define DISPLAY_CHANGE_TO_COMMAND_MODE (PORTFCLR = 0x10)
 #define DISPLAY_CHANGE_TO_DATA_MODE (PORTFSET = 0x10)
 
@@ -203,13 +205,37 @@ void move_ballup(){ //Fixar så att bollen kan röra sig uppåt på skärmen
 
 void ballColision1(){ //Ball colision for player 1
 	if (ballx == 3){ //The x-position where player 1 is
+		int p1 = 0;
+		int yvalue = bally;
 		
-		if ( ballx <
-		
+		for (p1 = 0; p1 < 8; p1++){
+		if ( yvalue = player1y + p1){
+			
+			//quicksleep(100000);
+			move_ballplayer2();
+			slut1 = 1;
+			break;
+		}
+		}
 	}
 }
 
 void ballColision2(){ //Ball colision for player 2
+
+	if (ballx == 125){ //The x-position where player 1 is
+		int p2 = 0;
+		int yvalue2 = bally;
+		
+		for (p2 = 0; p2 < 8; p2++){
+		if ( yvalue2 = player2y + p2){
+			
+			//quicksleep(100000);
+			move_ballplayer1();
+			slut1 = 0;
+			break;
+		}
+		}
+	}
 }
 
 void ballMovement(){
@@ -270,17 +296,18 @@ while (1){
 	
 	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
 	
+	ballColision1();
 	
-	// if (ballx < 128 || ballx > 0){
-		// quicksleep(100000);
-		// ballx += 1;
-		// setPixel(ballx, bally, 1);
-	// }
+	if (slut1 == 1){
+		
+		move_ballplayer2();
+		
+		
+	}
 	
-	if (bally < 0 )
-	
-	move_ballplayer1();
-	move_ballup();
+	if (slut1 == 0){
+		move_ballplayer1();
+	}
 	
 	display_image(0, bufferstate);
 	
