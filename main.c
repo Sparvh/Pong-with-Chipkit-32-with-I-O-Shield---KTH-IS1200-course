@@ -542,9 +542,15 @@ while (1){
 	
 	if (button == 4){
 		move_player1up();
+	}	
+	if (button ==3) {
+		move_player1down();
 	}
 	if (button == 2){
-		move_player1down();
+		move_player2up();
+	}
+	if (button == 1){
+		move_player2down();
 	}
 	
 	if (slut1 == 1){
