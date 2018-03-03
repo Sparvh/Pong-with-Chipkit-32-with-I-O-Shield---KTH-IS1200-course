@@ -270,14 +270,25 @@ void ballColision2(){ //Ball colision for player 2
 }
 
 void move_player1up(){
+	
+	if ( player1y >= 0 ){
 	quicksleep(100000);
-	player1y += player1y;
+	player1y = player1y - 1;
 	//getRect(player1x,player1y,player1w,player1h,1);
 	setPixel(pixeltestx, pixeltesty, 1);
-	getRect(player1x,player1y,player1w,player1h,1);
+	//getRect(player1x,player1y,player1w,player1h,1);
+	}
 }
 
 void move_player1down(){
+	
+	if ( player1y < 26 ){
+	quicksleep(100000);
+	player1y = player1y + 1;
+	//getRect(player1x,player1y,player1w,player1h,1);
+	setPixel(pixeltestx, pixeltesty, 1);
+	//getRect(player1x,player1y,player1w,player1h,1);
+	}
 }
 
 void move_player2(){
@@ -499,20 +510,27 @@ while (1){
 	ballColision1();
 	ballColision2();
 	
-	switch(button){
-	case 1:
-		move_player1up();
-		break;
-	case 2:
-		move_player1down();
-		break;
-	case 3:
-		move_player1up();
-		break;
-	case 4:
-		move_player1up();
-		break;
+	// switch(button){
+	// case 1:
+		// move_player1up();
+		// break;
+	// case 2:
+		// move_player1down();
+		// break;
+	// case 3:
+		// move_player1up();
+		// break;
+	// case 4:
+		// move_player1up();
+		// break;
 		
+	// }
+	
+	if (button == 4){
+		move_player1up();
+	}
+	if (button == 2){
+		move_player1down();
 	}
 	
 	if (slut1 == 1){
