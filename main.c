@@ -435,38 +435,6 @@ void display_string(int line, char *s) {
         } else
             textbuffer[line][i] = ' ';
 }
-int main(void){
-	
-init_mcu(); //Initilize led lampor och basic osv
-display_init(); //Initilize displayen 
-
-while (1){
-	clear();
-	getRect(player1x,player1y,player1w,player1h,1); //Skapar spelare 1
-	
-	getRect(player2x,player2y,player2w,player2h,1); //skapar spelare 2
-	
-	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
-	
-	ballColision1();
-	
-	if (slut1 == 1){
-		
-		move_ballplayer2();
-		
-		
-	}
-	
-	if (slut1 == 0){
-		move_ballplayer1();
-	}
-	
-	display_image(0, bufferstate);
-	
-}
-
-return 0;	
-}
 
 //player 1 score board
 void Player1ScoreBoard()
@@ -511,6 +479,40 @@ case 4:
     break;
     }
 }
+int main(void){
+	
+init_mcu(); //Initilize led lampor och basic osv
+display_init(); //Initilize displayen 
+
+while (1){
+	clear();
+	getRect(player1x,player1y,player1w,player1h,1); //Skapar spelare 1
+	
+	getRect(player2x,player2y,player2w,player2h,1); //skapar spelare 2
+	
+	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
+	
+	ballColision1();
+	
+	if (slut1 == 1){
+		
+		move_ballplayer2();
+		
+		
+	}
+	
+	if (slut1 == 0){
+		move_ballplayer1();
+	}
+	
+	display_image(0, bufferstate);
+	
+}
+
+return 0;	
+}
+
+
 
 
 
