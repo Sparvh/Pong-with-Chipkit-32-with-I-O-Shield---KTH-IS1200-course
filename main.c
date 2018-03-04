@@ -400,7 +400,7 @@ void move_ballplayer2(){ //Fixar så att bollen rör sig mot spelare 2
 
 void move_ballplayer1(){ //Fixar så att bollen rör sig mot spelare 1
 
-		if (switches == 1){
+		if (switches == 1){ //hardmode, makes it go faster
 		quicksleep(10000);
 		ballx -= 1;
 		setPixel(ballx, bally, 1);
@@ -413,11 +413,16 @@ void move_ballplayer1(){ //Fixar så att bollen rör sig mot spelare 1
 }
 
 void move_balldown(){//Fixar så att bollen kan röra sig neråt på skärmen
-		if (switches == 1){
+		if (switches == 1){ // hardmode, makes it go faster
 		quicksleep(10000);
 		bally += 1;
 		setPixel(ballx, bally, 1);
 			
+		}
+		if (switches == 2){
+		quicksleep(100000);
+		bally += 1;
+		setPixel(ballx, bally, 1);
 		}
 		else {
 		quicksleep(100000);
@@ -427,7 +432,7 @@ void move_balldown(){//Fixar så att bollen kan röra sig neråt på skärmen
 }
 
 void move_ballup(){ //Fixar så att bollen kan röra sig uppåt på skärmen
-		if (switches == 1){
+		if (switches == 1){ //hardmode, makes it go faster
 		quicksleep(10000);
 		bally -= 1;
 		setPixel(ballx, bally, 1);
@@ -463,7 +468,7 @@ void ballColision1(){ //Ball colision for player 1
 		
 		// for (p1 = 0; p1 < 8; p1++){
 		// if ( yvalueball == (yvalue + p1)){
-			quicksleep(100000);
+			//quicksleep(100000);
 			// move_ballplayer2();
 			// slut1 = 1;
 			// break;
@@ -710,6 +715,7 @@ while (GAME == 1){
 		bally = 16;
 		//Player1ScoreBoard();
 	}
+	
 	
 	
 
