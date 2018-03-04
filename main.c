@@ -418,7 +418,12 @@ void Player1ScoreBoard()
 {
     switch(Player1Score){
 case 0:
-    display_string(0,"0");
+	int i	    
+    for(i=0; i<4; i++)
+    {
+     setPixel(67,i,1);
+    }	
+		    
     break;
 case 1:
     display_string(0,"1");
