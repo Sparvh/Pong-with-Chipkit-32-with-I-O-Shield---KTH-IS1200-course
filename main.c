@@ -20,8 +20,11 @@ int button1;
 int switches;
 
 //Test
-int pixeltestx = 14;
-int pixeltesty = 13;
+int pixeltestx = 32;
+int pixeltesty = 2;
+
+int pixelP2x = 94;
+int pixelP2y = 2;
 
 //scores
 int Player1Score = 0;
@@ -52,7 +55,7 @@ int twelve = 12;
 
 int slut1 = 0;
 int slut2 = 0;
-int slut3 = 0;
+int gameMode = 0;
 int collisionThing = 1;
 
 char textbuffer[4][16];
@@ -458,20 +461,6 @@ void ballColision1(){ //Ball colision for player 1
 		}
 		}
 	}
-		// if (player1y >= 16){
-		// int p1 = 0;
-		// int yvalue = player1y;
-		// int yvalueball = bally;
-		
-		// for (p1 = 0; p1 < 8; p1++){
-		// if ( yvalueball == (yvalue + p1)){
-			//quicksleep(100000);
-			// move_ballplayer2();
-			// slut1 = 1;
-			// break;
-		// }
-		// }
-	// }
 	
 	}
 }
@@ -510,9 +499,6 @@ void move_player1up(){
 	quicksleep(100000);
 	player1y = player1y - 1;
 	}
-	//getRect(player1x,player1y,player1w,player1h,1);
-	//setPixel(pixeltestx, pixeltesty, 1);
-	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
 
@@ -527,12 +513,6 @@ void move_player1down(){
 	quicksleep(100000);
 	player1y = player1y + 1;
 	}
-	
-	
-	
-	//getRect(player1x,player1y,player1w,player1h,1);
-	//setPixel(pixeltestx, pixeltesty, 1);
-	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
 
@@ -546,13 +526,9 @@ void move_player2up(){
 	quicksleep(100000);
 	player2y = player2y - 1;
 	}
-	//getRect(player1x,player1y,player1w,player1h,1);
-	//setPixel(pixeltestx, pixeltesty, 1);
-	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
 void move_player2down(){
-	if ( slut3 = 0){
 	if ( player2y < 26 ){
 		
 	if (switches == 1){
@@ -563,26 +539,19 @@ void move_player2down(){
 	quicksleep(100000);
 	player2y = player2y + 1;
 	}
-	//getRect(player1x,player1y,player1w,player1h,1);
-	//setPixel(pixeltestx, pixeltesty, 1);
-	//getRect(player1x,player1y,player1w,player1h,1);
-	}
-	}
-	else {
-		if (bally > player2y){
-			player2y = player2y + 1;
-		}
-		else {
-			player2y = player2y - 1;
-		}
-		
 	}
 	
 }
-void Menuscreen(){
-}
 
-void Victoryscreen(){
+void move_AI(){
+	
+		if (bally > player2y){
+			player2y = player2y + 1;
+		}
+		else{
+			player2y = player2y - 1;
+		}
+		
 }
 
 void BallCollisionWall2(){ //Om bollen är längst uppe på skärmen påväg mot player 2
@@ -638,7 +607,7 @@ int getbtn1(void){ //Inputen för knapp1
 	return button1;
 }
 
-void clear(){
+void clear(){ //Clear screen
 	
 	int i;
 	
@@ -648,24 +617,49 @@ void clear(){
 	
 }
 
-
-// void player1boardBS(){
-	// int k;
-	
-	// for ( k = 50; k < 54; k++){
-		// setPixel(pixeltestx, pixeltesty, 1);
-		// pixeltestx = pixeltestx + 1;
-		// pixeltesty = pixeltesty + 1;
-	// }
-	
-// }
-
-void Player1ScoreBoard()
+int Player1ScoreBoard(int x)
 {
+	if (x > 0){
+	switch(1){
+	
+	case 1:
 	setPixel(pixeltestx, pixeltesty, 1);
 	setPixel(pixeltestx, pixeltesty + 1, 1);
 	setPixel(pixeltestx, pixeltesty + 2, 1);
 	setPixel(pixeltestx, pixeltesty + 3, 1);
+	
+	if (x <= 1){
+		break;
+	}
+	case 2:
+	setPixel(pixeltestx + 2, pixeltesty, 1);
+	setPixel(pixeltestx + 2, pixeltesty + 1, 1);
+	setPixel(pixeltestx + 2, pixeltesty + 2, 1);
+	setPixel(pixeltestx + 2, pixeltesty + 3, 1);
+	}}
+
+}
+
+int Player2ScoreBoard(int x)
+{
+	if (x > 0){
+	switch(1){
+	
+	case 1:
+	setPixel(pixelP2x, pixelP2y, 1);
+	setPixel(pixelP2x, pixelP2y + 1, 1);
+	setPixel(pixelP2x, pixelP2y + 2, 1);
+	setPixel(pixelP2x, pixelP2y + 3, 1);
+	
+	if (x <= 1){
+		break;
+	}
+	case 2:
+	setPixel(pixelP2x + 2, pixelP2y, 1);
+	setPixel(pixelP2x + 2, pixelP2y + 1, 1);
+	setPixel(pixelP2x + 2, pixelP2y + 2, 1);
+	setPixel(pixelP2x + 2, pixelP2y + 3, 1);
+	}}
 
 }
 
@@ -686,47 +680,45 @@ while (GAME == 0){
 	display_string(3,"for 2 player");
 	display_update();
 	
-	if ( butten == 2 ){
+	if ( butten == 2 ){ // Går direkt till spelet (multi)
 		GAME = 1;
 	}
-	if ( butten == 4){
+	if ( butten == 4){ //Kör singleplayer mode
 		GAME = 1;
-		slut3 = 1;
+		gameMode = 1;
 	}
 	
 }
 
-while (GAME == 1){
+while (GAME == 1){ //Actual game running
 	
-	if (Player1Score == 3){
+	if (Player1Score == 3){ //Om player1 vinner, gå till player1 victoryscreen
 		GAME = 2;
 	}
 	
-	if (Player2Score == 3) {
+	if (Player2Score == 3) { //Om player2 vinner, gå till player2 Victoryscreen
 		GAME = 3;
 	}
 	
-	else {
+	else { // Else, kör spelet
 	
 	clear();
 	button = getbtns();
 	switches = getsw();
 	button1 = getbtn1();
-	Player1ScoreBoard();
-	//Player2ScoreBoard(Player1Score);
+	Player1ScoreBoard(Player1Score); //checking to update score
+	Player2ScoreBoard(Player2Score); 
 	
-	if (ballx == 0){
+	if (ballx == 0){ //Check for score for player 2
 	Player2Score = Player2Score + 1;
 		ballx = 64;
 		bally = 16;
-		//Player1ScoreBoard();
 	}
 	
-	if (ballx == 128){
+	if (ballx == 128){ //Check for score for player 1
 		Player1Score = Player1Score + 1;
 		ballx = 64;
 		bally = 16;
-		//Player1ScoreBoard();
 	}
 	
 	
@@ -736,8 +728,10 @@ while (GAME == 1){
 	
 	setPixel(ballx, bally, 1); //Sätter ut bollen i mitten
 	
-	ballColision1();
+	ballColision1(); //Constantly check collision
 	ballColision2();
+	
+	
 	
 	if (button == 4){
 		move_player1up();
@@ -747,7 +741,7 @@ while (GAME == 1){
 	}
 	
 	
-	if (slut3 = 0){ //If its multiplayer mode
+	if (gameMode == 0){ //If its multiplayer mode
 	if (button1 == 1){
 	move_player2down();
 	}
@@ -755,39 +749,38 @@ while (GAME == 1){
 	move_player2up();
 	}
 	}
-	else{ //If it's singlepalyer
-		move_player2down();
-		//move_player2up();
+	if (gameMode == 1) { //If it's singlepalyer
+		move_AI(); //Calls for the AI constantly
 	}
 	
-	if (slut1 == 1){
+	if (slut1 == 1){ //If it's succesfully colided with player 1
 		
-		BallCollisionWall2();
+		BallCollisionWall2(); // Keepchecking collision
 		BallCollisionWall22();
 		
-		if (collisionThing == 1){
+		if (collisionThing == 1){ // Checking if it's on the top part of screen
 			move_ballplayer2();
 			move_balldown();
 		}
 		
-		if (collisionThing == 2){
+		if (collisionThing == 2){ //Checking if it's on the bottom part of screen
 			move_ballplayer2();
 			move_ballup();			
 		}
 	
 	}
 	
-	if (slut1 == 0){
+	if (slut1 == 0){ //If it's succesfully colided with player 2
 		
-		BallCollisionWall1();
+		BallCollisionWall1(); //Keep checking collision
 		BallCollisionWall11();
 		
-			if (collisionThing == 1){
+			if (collisionThing == 1){ // Checking if it's on the top part of screen
 			move_ballplayer1();
 			move_balldown();
 		}
 		
-		if (collisionThing == 2){
+		if (collisionThing == 2){ // Checking if it's on the bottom part of screen
 			move_ballplayer1();
 			move_ballup();			
 		}
@@ -798,7 +791,7 @@ while (GAME == 1){
 	
 }	
 
-while (GAME == 2){
+while (GAME == 2){ //Player 1 victory screen
 	
 	display_string(0,"");
 	display_string(1,"");
@@ -808,7 +801,7 @@ while (GAME == 2){
 	
 }
 
-while (GAME == 3){
+while (GAME == 3){ //Player 2 victory screen
 	display_string(0,"");
 	display_string(1,"");
 	display_string(2,"PLAYER 2 GJ!!!!");
