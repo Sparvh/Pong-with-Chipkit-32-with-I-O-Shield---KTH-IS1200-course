@@ -29,7 +29,7 @@ int Player2Score = 0;
 
 //player 1
 int player1x = 0;
-int player1y = 0;
+int player1y = 12;
 int player1w = 3;
 int player1h = 8;
 
@@ -438,11 +438,14 @@ void ballColision1(){ //Ball colision for player 1
 void ballColision2(){ //Ball colision for player 2
 
 	if (ballx == 125){ //The x-position where player 2 is
+	
+	if (player2y < 16){
 		int p2 = 0;
-		int yvalue2 = bally;
+		int yvalue2 = player2y;
+		int yvalueball2 = bally;
 		
 		for (p2 = 0; p2 < 8; p2++){
-		if ( yvalue2 = player2y + p2){
+		if ( yvalueball2 == (yvalue2 + p2)){
 			
 			//quicksleep(100000);
 			move_ballplayer1();
@@ -452,6 +455,7 @@ void ballColision2(){ //Ball colision for player 2
 		}
 	}
 }
+}
 
 void move_player1up(){
 	
@@ -459,7 +463,7 @@ void move_player1up(){
 	quicksleep(100000);
 	player1y = player1y - 1;
 	//getRect(player1x,player1y,player1w,player1h,1);
-	setPixel(pixeltestx, pixeltesty, 1);
+	//setPixel(pixeltestx, pixeltesty, 1);
 	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
@@ -470,7 +474,7 @@ void move_player1down(){
 	quicksleep(100000);
 	player1y = player1y + 1;
 	//getRect(player1x,player1y,player1w,player1h,1);
-	setPixel(pixeltestx, pixeltesty, 1);
+	//setPixel(pixeltestx, pixeltesty, 1);
 	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
@@ -480,7 +484,7 @@ void move_player2up(){
 	quicksleep(100000);
 	player2y = player2y - 1;
 	//getRect(player1x,player1y,player1w,player1h,1);
-	setPixel(pixeltestx, pixeltesty, 1);
+	//setPixel(pixeltestx, pixeltesty, 1);
 	//getRect(player1x,player1y,player1w,player1h,1);
 	}
 }
