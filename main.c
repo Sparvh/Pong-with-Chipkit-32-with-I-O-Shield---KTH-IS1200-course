@@ -51,6 +51,8 @@ int eleven = 11;
 int twelve = 12;
 
 int slut1 = 0;
+int slut2 = 0;
+int slut3 = 0;
 int collisionThing = 1;
 
 char textbuffer[4][16];
@@ -419,11 +421,6 @@ void move_balldown(){//Fixar så att bollen kan röra sig neråt på skärmen
 		setPixel(ballx, bally, 1);
 			
 		}
-		if (switches == 2){
-		quicksleep(100000);
-		bally += 1;
-		setPixel(ballx, bally, 1);
-		}
 		else {
 		quicksleep(100000);
 		bally += 1;
@@ -555,6 +552,7 @@ void move_player2up(){
 	}
 }
 void move_player2down(){
+	if ( slut3 = 0){
 	if ( player2y < 26 ){
 		
 	if (switches == 1){
@@ -569,6 +567,17 @@ void move_player2down(){
 	//setPixel(pixeltestx, pixeltesty, 1);
 	//getRect(player1x,player1y,player1w,player1h,1);
 	}
+	}
+	else {
+		if (bally > player2y){
+			player2y = player2y + 1;
+		}
+		else {
+			player2y = player2y - 1;
+		}
+		
+	}
+	
 }
 void Menuscreen(){
 }
@@ -680,6 +689,10 @@ while (GAME == 0){
 	if ( butten == 2 ){
 		GAME = 1;
 	}
+	if ( butten == 4){
+		GAME = 1;
+		slut3 = 1;
+	}
 	
 }
 
@@ -717,9 +730,6 @@ while (GAME == 1){
 	}
 	
 	
-	
-
-	
 	getRect(player1x,player1y,player1w,player1h,1); //Skapar spelare 1
 	
 	getRect(player2x,player2y,player2w,player2h,1); //skapar spelare 2
@@ -735,11 +745,19 @@ while (GAME == 1){
 	if (button == 2) {
 		move_player1down();
 	}
+	
+	
+	if (slut3 = 0){ //If its multiplayer mode
 	if (button1 == 1){
 	move_player2down();
 	}
 	if (button == 1){
 	move_player2up();
+	}
+	}
+	else{ //If it's singlepalyer
+		move_player2down();
+		//move_player2up();
 	}
 	
 	if (slut1 == 1){
@@ -800,4 +818,3 @@ while (GAME == 3){
 
 return 0;	
 }
-
