@@ -4,6 +4,13 @@
 //#include <stdlib.h>
 //#include "mipslab.h"
 
+
+/*
+
+This is the shittiest version of a pong game with the Chipkit32 and I/O Shield you can find. But it works.
+
+
+*/
 void user_isr(void);
 void init_mcu(void);
 void init_tim(void);
